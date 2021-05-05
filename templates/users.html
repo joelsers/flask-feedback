@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Flask Feedback{% endblock %}
+
+{% block content %}
+
+
+
+<h1>You made it {{user.username}}!</h1>
+<p>
+    {{user.first_name}}
+</p>
+<p>
+    {{user.last_name}}
+</p>
+<p>
+    {{user.email}}
+</p>
+<p>
+    {{user.username}}
+</p>
+<form action="/users/{{user.username}}/delete"><button class = "btn btn-danger btn-large">Delete User</button></form>
+
+
+<ul class="list-group bg-dark text-light">
+    {% for feedback in feedbacks %}
+        
+    
+        {% if feedback.user_username == user.username %}
+        <li class="list-group-item">
+            <b>{{feedback.title}}</b>
+            <p>{{feedback.content}}</p>
+            <form action="/feedback/{{feedback.id}}/edit"><button class="btn btn-warning btn-large">Edit</button></form>
+            <form action="/feedback/{{feedback.id}}/delete"><button class="btn btn-danger btn-large">Delete</button></form>  
+        </li>
+        {% endif %}
+    
+    {% endfor %}
+</ul>
+
+<a href="/users/{{user.username}}/feedback/add">Click here for user feedback</a>
+
+
+
+
+{% endblock %}
